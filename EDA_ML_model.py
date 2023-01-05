@@ -131,9 +131,11 @@ class crop_recommendation_model():
         return pred_prob
     
         
-    def predicted_output(self):
+    def predicted_output(self, data_file):
         
-        self.data['prediction'] = self.encoder.classes_[np.argmax(self.model.predict_proba(self.data), axis=1)]
+        df = pd.read_csv(data_file)
+        X = df.drop('label', axis=1).copy()
+        self.data['prediction'] = self.encoder.classes_[np.argmax(self.model.predict_proba(X), axis=1)]
         return self.data
         
     
