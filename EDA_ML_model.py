@@ -124,7 +124,6 @@ class crop_recommendation_model():
         
         df = pd.read_csv(data_file)
         X = df.drop('label', axis=1).copy()
-        self.data=X
         pred_prob = self.model.predict_proba(X)
         pred_prob = pd.DataFrame(self.model.predict_proba(X))
         pred_prob.columns=self.encoder.classes_
@@ -135,8 +134,8 @@ class crop_recommendation_model():
         
         df = pd.read_csv(data_file)
         X = df.drop('label', axis=1).copy()
-        self.data['prediction'] = self.encoder.classes_[np.argmax(self.model.predict_proba(X), axis=1)]
-        return self.data
+        X['prediction'] = self.encoder.classes_[np.argmax(self.model.predict_proba(X), axis=1)]
+        return X
         
     
 
